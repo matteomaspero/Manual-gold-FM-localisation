@@ -9,7 +9,7 @@ The Matlab code to analyse the five observer FM localisation in terms of precisi
 
 ## How to...
 
-Run the code? Simply clone/download the repository and run within Matlab LoA_LoACM.m to analyse the precision and Ibter_Marker_Distaces.m to analyse accuracy. Note that the code has been developed and benchmarked in Matlab R2015a and we do not ensure/support workability for different versions of Matlab.
+Run the code? Simply clone/download the repository and run within Matlab LoA_LoACM.m to analyse the precision and Inter_Marker_Distaces.m to analyse accuracy. Note that the code has been developed and benchmarked in Matlab R2015a and we do not ensure/support workability for different versions of Matlab.
 
 ## Disclaimer
 
