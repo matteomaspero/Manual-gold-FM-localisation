@@ -1,4 +1,4 @@
-# Welcome to the code to analyse accuracy and precision of manual localisation of intra-prostatic gold Fiducial Marker (FM)
+# Welcome to the code to analyse inter-observer accuracy and precision of manual localisation of intra-prostatic gold Fiducial Marker (FM)
 
 This work aims at presenting the analysis related to the article recently submitted to Radiation Oncology by Maspero Matteo and co-workers (2017) about intra-prostatic FM localisation on sole MR images. Note that the code will be published upon publication of the related manuscript. 
 ## What can you find here?
