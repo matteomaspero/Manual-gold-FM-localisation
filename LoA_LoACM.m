@@ -27,7 +27,7 @@ Gen.savePng=1234;
 filedir='./Figure';
 
 % Pt to be visualised
-Pt=17;
+Pt=1;
 
 %% Parameters for Visualization
 addpath('../utils/')
@@ -36,8 +36,8 @@ set(0,'DefaultAxesFontSize',Size_ftn,'DefaultAxesFontName',Name_ftn,'DefaultText
 NumCol=12;
 ColorObs=distinguishable_colors(5,{'w','k'});
 ColorDist=distinguishable_colors(NumCol);
-Marke={'.','x','+','o'};
-MarkeSiz={16,6,8,6};
+Marke={'o','x','+','.'};
+MarkeSiz={20,20,20,60};
 
 %% Data opening for multiple sequences
 
@@ -119,10 +119,26 @@ end
 
 figure('Name','Representation Inter-observer on multiple sequences')
 colormap(ColorDist)
-
-for ll=1:3
-    view([-20 45]);
+  view([-20 45]);
     axis equal;hold on
+plot3(CM_MRman1(Pt,1),CM_MRman1(Pt,2),CM_MRman1(Pt,3),'Color',ColorObs(1,:),...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 1')
+plot3(CM_MRman2(Pt,1),CM_MRman2(Pt,2),CM_MRman2(Pt,3),'Color',ColorObs(2,:),...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 2')
+plot3(CM_MRman3(Pt,1),CM_MRman3(Pt,2),CM_MRman3(Pt,3),'Color',ColorObs(3,:),...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 3')
+plot3(CM_MRman4(Pt,1),CM_MRman4(Pt,2),CM_MRman4(Pt,3),'Color',ColorObs(4,:),...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 4')
+plot3(CM_MRman5(Pt,1),CM_MRman5(Pt,2),CM_MRman5(Pt,3),'Color',ColorObs(5,:),...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 5')
+plot3(PosCentTri(1,1,Pt),PosCentTri(1,2,Pt),PosCentTri(1,3,Pt),'k',...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Agreement')
+
+        s=legend('show'); box(s,'off')
+        set(s,'Position',[ 0.3    0.78    0.0751    0.1273]);
+    
+for ll=1:3
+  
     if ll<=size(CoGMRman1_ord{Pt},1)
         plot3(CoGMRman1_ord{Pt}(ll,1),CoGMRman1_ord{Pt}(ll,2),CoGMRman1_ord{Pt}(ll,3),'Color',ColorObs(1,:),...
             'Marker',Marke{ll},'MarkerSize',MarkeSiz{ll},'LineWidth',1.5,'DisplayName','Obs 1')
@@ -145,10 +161,7 @@ for ll=1:3
     end
     plot3(PosCent(ll,1,Pt),PosCent(ll,2,Pt),PosCent(ll,3,Pt),'k',...
         'Marker',Marke{ll},'MarkerSize',MarkeSiz{ll},'LineWidth',1.5,'DisplayName','Agreement')
-    if ll==1
-        s=legend('show'); box(s,'off')
-        set(s,'Position',[ 0.3    0.78    0.0751    0.1273]);
-    end
+    
 end
 xlabel('X [mm]');ylabel('Y [mm]');zlabel('Z [mm]'); % title(['Pt ',num2str(Pt)])
 caxis([0,3])
@@ -156,22 +169,11 @@ caxis([0,3])
 % Center of Mass
 annotation(gcf,'textbox',[0.11 0.765 0.137202377040826 0.14654282359762],...
     ... %s.Position + [0 s.Position(4) 0 0] ,...
-    'String',{'*   FM 1','x   FM 2','+   FM 3','o  Center Mass'},...
+    'String',{'o   FM 1','x   FM 2','+   FM 3','\bullet  Center Mass'},...
     'FontSize',Size_ftn,'FontName',Name_ftn,'LineStyle','none',...
     'FitBoxToText','on');
 
-plot3(CM_MRman1(Pt,1),CM_MRman1(Pt,2),CM_MRman1(Pt,3),'Color',ColorObs(1,:),...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Obs 1')
-plot3(CM_MRman2(Pt,1),CM_MRman2(Pt,2),CM_MRman2(Pt,3),'Color',ColorObs(2,:),...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Obs 2')
-plot3(CM_MRman3(Pt,1),CM_MRman3(Pt,2),CM_MRman3(Pt,3),'Color',ColorObs(3,:),...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Obs 3')
-plot3(CM_MRman4(Pt,1),CM_MRman4(Pt,2),CM_MRman4(Pt,3),'Color',ColorObs(4,:),...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Obs 4')
-plot3(CM_MRman5(Pt,1),CM_MRman5(Pt,2),CM_MRman5(Pt,3),'Color',ColorObs(5,:),...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Obs 5')
-plot3(PosCentTri(1,1,Pt),PosCentTri(1,2,Pt),PosCentTri(1,3,Pt),'k',...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Agreement')
+
 set(gcf,'Position',[1 1 1680 968])
 grid on
 if Gen.savePng==1234
@@ -261,7 +263,24 @@ end
 %% Visualization Fiducials in 3D with triangle MR/CT & CT high Inter-observer
 
 figure('Name','Representation Inter-observer on single sequence')
+colormap(ColorDist)
+  view([-20 45]);
+    axis equal;hold on
+plot3(CM_MRman1(Pt,1),CM_MRman1(Pt,2),CM_MRman1(Pt,3),'Color',ColorObs(1,:),...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 1')
+plot3(CM_MRman2(Pt,1),CM_MRman2(Pt,2),CM_MRman2(Pt,3),'Color',ColorObs(2,:),...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 2')
+plot3(CM_MRman3(Pt,1),CM_MRman3(Pt,2),CM_MRman3(Pt,3),'Color',ColorObs(3,:),...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 3')
+plot3(CM_MRman4(Pt,1),CM_MRman4(Pt,2),CM_MRman4(Pt,3),'Color',ColorObs(4,:),...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 4')
+plot3(CM_MRman5(Pt,1),CM_MRman5(Pt,2),CM_MRman5(Pt,3),'Color',ColorObs(5,:),...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 5')
+plot3(PosCentTri(1,1,Pt),PosCentTri(1,2,Pt),PosCentTri(1,3,Pt),'k',...
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Agreement')
 
+        s=legend('show'); box(s,'off')
+        set(s,'Position',[ 0.3    0.78    0.0751    0.1273]);
 for ll=1:3
     view([-20 45]);
     axis equal;hold on
@@ -290,16 +309,7 @@ for ll=1:3
     
     plot3(PosCent(ll,1,Pt),PosCent(ll,2,Pt),PosCent(ll,3,Pt),'k',...
         'Marker',Marke{ll},'MarkerSize',MarkeSiz{ll},'LineWidth',1.5,'DisplayName','Agreement')
-    r=max(max([rLoA_X(ll,Pt) rLoA_Y(ll,Pt) rLoA_Z(ll,Pt)])) ;
-    col=ceil(r/2.5*NumCol);
-    if col>NumCol
-        col=NumCol;
-    end
-    
-    if ll==1
-        s=legend('show'); box(s,'off')
-        set(s,'Position',[ 0.3    0.78    0.0751    0.1273]);
-    end
+   
 end
 xlabel('X [mm]');ylabel('Y [mm]');zlabel('Z [mm]'); % title(['Pt ',num2str(Pt)])
 caxis([0,3])
@@ -307,27 +317,22 @@ caxis([0,3])
 % Center of Mass
 annotation(gcf,'textbox',[0.11 0.765 0.137202377040826 0.14654282359762],...
     ... %s.Position + [0 s.Position(4) 0 0] ,...
-    'String',{'*   FM 1','x   FM 2','+   FM 3','o  Center Mass'},...
+    'String',{'o   FM 1','x   FM 2','+   FM 3','\bullet  Center Mass'},...
     'FontSize',Size_ftn,'FontName',Name_ftn,'LineStyle','none',...
     'FitBoxToText','on');
 
 plot3(CM_MRman1(Pt,1),CM_MRman1(Pt,2),CM_MRman1(Pt,3),'Color',ColorObs(1,:),...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Obs 1')
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 1')
 plot3(CM_MRman2(Pt,1),CM_MRman2(Pt,2),CM_MRman2(Pt,3),'Color',ColorObs(2,:),...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Obs 2')
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 2')
 plot3(CM_MRman3(Pt,1),CM_MRman3(Pt,2),CM_MRman3(Pt,3),'Color',ColorObs(3,:),...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Obs 3')
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 3')
 plot3(CM_MRman4(Pt,1),CM_MRman4(Pt,2),CM_MRman4(Pt,3),'Color',ColorObs(4,:),...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Obs 4')
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 4')
 plot3(CM_MRman5(Pt,1),CM_MRman5(Pt,2),CM_MRman5(Pt,3),'Color',ColorObs(5,:),...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Obs 5')
-r=max(rLoA_CM(:,Pt));
-col=ceil(r/2.5*NumCol);
-if col>NumCol
-    col=NumCol;
-end
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Obs 5')
 plot3(PosCentTri(1,1,Pt),PosCentTri(1,2,Pt),PosCentTri(1,3,Pt),'k',...
-    'Marker','o','MarkerSize',6,'LineWidth',1.5,'DisplayName','Agreement')
+    'Marker',Marke{ll+1},'MarkerSize',MarkeSiz{ll+1},'LineWidth',1.5,'DisplayName','Agreement')
 
 set(gcf,'Position',[1 1 1680 968])
 
